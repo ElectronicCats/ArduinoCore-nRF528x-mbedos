@@ -91,7 +91,7 @@ static const uint8_t SCK  = PIN_SPI_SCK;
 #define SERIAL_PORT_MONITOR         SerialUSB
 #define SERIAL_PORT_HARDWARE        Serial1
 #define SERIAL_PORT_HARDWARE_OPEN   Serial1
-
+#define Serial                      SerialUSB
 
 // Mbed specific defines
 #define SERIAL_HOWMANY		1
