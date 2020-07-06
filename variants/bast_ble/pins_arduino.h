@@ -69,6 +69,9 @@ static const uint8_t SCK  = PIN_SPI_SCK;
 #define PIN_WIRE_SDA        (2u)
 #define PIN_WIRE_SCL        (3u)
 
+#define PIN_WIRE_SDA1       -1 //Dummies
+#define PIN_WIRE_SCL1       -1 //Dummies
+
 // These serial port names are intended to allow libraries and architecture-neutral
 // sketches to automatically default to the correct port name for a particular type
 // of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
@@ -105,6 +108,8 @@ static const uint8_t SCK  = PIN_SPI_SCK;
 
 #define I2C_SDA				(digitalPinToPinName(PIN_WIRE_SDA))
 #define I2C_SCL				(digitalPinToPinName(PIN_WIRE_SCL))
+#define I2C_SDA1			(digitalPinToPinName(PIN_WIRE_SDA1))
+#define I2C_SCL1			(digitalPinToPinName(PIN_WIRE_SCL1))
 
 #define SPI_MISO			(digitalPinToPinName(PIN_SPI_MISO))
 #define SPI_MOSI			(digitalPinToPinName(PIN_SPI_MOSI))
