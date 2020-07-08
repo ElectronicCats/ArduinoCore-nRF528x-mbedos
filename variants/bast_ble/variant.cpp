@@ -33,11 +33,13 @@ PinDescription g_APinDescription[] = {
   P0_26, NULL, NULL,     // VBAT CHANGE!!
 
   // 22..26 - FLASH SPI
+ 
+  P0_13,  NULL, NULL,     // QSPI_SCK
+  P0_20, NULL, NULL,      // QSPI_CS
   P0_17,  NULL, NULL,     // QSPI_DATA0
   P0_22,  NULL, NULL,     // QSPI_DATA1
   P1_4, NULL, NULL,       // QSPI_DATA2
-  P0_13,  NULL, NULL,     // QSPI_SCK
-  P0_20, NULL, NULL,      // QSPI_CS
+  P0_12, NULL, NULL,       // QSPI_DATA3
   
 
 };
