@@ -86,4 +86,4 @@ bastble.bootloader.tool=openocd
 bastble.bootloader.extra_action.preflash=nrf5 mass_erase
 bastble.bootloader.config=-f target/nrf52.cfg
 bastble.bootloader.programmer=-f interface/cmsis-dap.cfg
-bastble.bootloader.file=bastble/bootloader.hex
+bastble.bootloader.file=bastble/bast_ble_bootloader-0.3.2.hex
