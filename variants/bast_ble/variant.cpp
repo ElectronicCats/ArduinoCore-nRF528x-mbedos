@@ -32,7 +32,7 @@ PinDescription g_APinDescription[] = {
   P0_29, NULL, NULL,     // A5
   P0_26, NULL, NULL,     // VBAT CHANGE!!
 
-  // 22..26 - FLASH SPI
+  // 22..27 - FLASH SPI
  
   P0_13,  NULL, NULL,     // QSPI_SCK
   P0_20, NULL, NULL,      // QSPI_CS

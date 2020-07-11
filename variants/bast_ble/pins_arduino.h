@@ -20,14 +20,19 @@
 extern "C" unsigned int PINCOUNT_fn();
 #endif
 #define PINS_COUNT           (PINCOUNT_fn())
-#define NUM_DIGITAL_PINS     (26u)
-#define NUM_ANALOG_INPUTS    (6u)
+#define NUM_DIGITAL_PINS     (27u)
+#define NUM_ANALOG_INPUTS    (7u)
 #define NUM_ANALOG_OUTPUTS   (0u)
 
 // LEDs
 // ----
 #define PIN_LED     (14u)
 #define LED_BUILTIN PIN_LED
+
+// On-board SPI Flash
+#define EXTERNAL_FLASH_DEVICES  GD25Q16C
+#define EXTERNAL_FLASH_USE_QSPI  SPI1
+#define EXTERNAL_FLASH_USE_CS   SS1
 
 // Analog pins
 // -----------
@@ -54,7 +59,11 @@ static const uint8_t A5  = PIN_A5;
 #define PIN_SERIAL_RX (1ul)
 #define PIN_SERIAL_TX (0ul)
 
-// SPI
+/*
+ * SPI Interfaces
+ */
+#define SPI_INTERFACES_COUNT 2 //SPI on pins
+
 #define PIN_SPI_MISO  (8u)
 #define PIN_SPI_MOSI  (7u)
 #define PIN_SPI_SCK   (4u)
@@ -64,6 +73,16 @@ static const uint8_t SS   = PIN_SPI_SS;   // SPI Slave SS not used. Set here onl
 static const uint8_t MOSI = PIN_SPI_MOSI;
 static const uint8_t MISO = PIN_SPI_MISO;
 static const uint8_t SCK  = PIN_SPI_SCK;
+
+#define PIN_SPI1_MISO         (11u)
+#define PIN_SPI1_MOSI         (8u)
+#define PIN_SPI1_SCK          (9u) 
+#define PIN_SPI1_SS           (10u)
+
+static const uint8_t SS1   = PIN_SPI1_SS ;
+static const uint8_t MOSI1 = PIN_SPI1_MOSI ;
+static const uint8_t MISO1 = PIN_SPI1_MISO ;
+static const uint8_t SCK1  = PIN_SPI1_SCK ;
 
 // Wire
 #define PIN_WIRE_SDA        (2u)
@@ -115,7 +134,11 @@ static const uint8_t SCK  = PIN_SPI_SCK;
 #define SPI_MOSI			(digitalPinToPinName(PIN_SPI_MOSI))
 #define SPI_SCK				(digitalPinToPinName(PIN_SPI_SCK))
 
-#define digitalPinToPort(P)		(digitalPinToPinName(P)/32)
+#define SPI1_MISO			(digitalPinToPinName(PIN_SPI1_MISO))
+#define SPI1_MOSI			(digitalPinToPinName(PIN_SPI1_MOSI))
+#define SPI1_SCK			(digitalPinToPinName(PIN_SPI1_SCK))
+
+#define digitalPinToPort(P)		(digitalPinToPinName(P)/33)
 
 uint8_t getUniqueSerialNumber(uint8_t* name);
 void _ontouch1200bps_();
