@@ -1,10 +1,33 @@
 #pragma once
-#include "mbed_config.h"
 #include <stdint.h>
 #include <macros.h>
 
 #ifndef __PINS_ARDUINO__
 #define __PINS_ARDUINO__
+
+#define ANALOG_CONFIG
+
+/* Analog reference options 
+ * Different possibilities available combining Reference and Gain
+ */
+enum _AnalogReferenceMode
+{
+  AR_VDD,         // 3.3 V
+  AR_INTERNAL,    // 0.6 V
+  AR_INTERNAL1V2, // 1.2 V
+  AR_INTERNAL2V4  // 2.4 V
+};
+
+/* Analog acquisition time options */
+enum _AnalogAcquisitionTime
+{
+  AT_3_US,         
+  AT_5_US,    
+  AT_10_US, // Default value
+  AT_15_US,
+  AT_20_US,  
+  AT_40_US  
+};
 
 // Frequency of the board main oscillator
 #define VARIANT_MAINOSC (32768ul)
@@ -52,6 +75,23 @@ static const uint8_t A5  = PIN_A5;
 
 #define ADC_RESOLUTION 12
 
+// Digital pins
+// -----------
+#define D0   0
+#define D1   1
+#define D2   2
+#define D3   3
+#define D4   4
+#define D5   5
+#define D6   6
+#define D7   7
+#define D8   8
+#define D9   9
+#define D10  10
+#define D11  11
+#define D12  12
+#define D13  13
+
 /*
  * Serial interfaces
  */
@@ -88,9 +128,6 @@ static const uint8_t SCK1  = PIN_SPI1_SCK ;
 #define PIN_WIRE_SDA        (2u)
 #define PIN_WIRE_SCL        (3u)
 
-#define PIN_WIRE_SDA1       -1 //Dummies
-#define PIN_WIRE_SCL1       -1 //Dummies
-
 // These serial port names are intended to allow libraries and architecture-neutral
 // sketches to automatically default to the correct port name for a particular type
 // of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
@@ -125,10 +162,12 @@ static const uint8_t SCK1  = PIN_SPI1_SCK ;
 
 #define DFU_MAGIC_SERIAL_ONLY_RESET   0xb0
 
+#define WIRE_HOWMANY		1
+
 #define I2C_SDA				(digitalPinToPinName(PIN_WIRE_SDA))
 #define I2C_SCL				(digitalPinToPinName(PIN_WIRE_SCL))
-#define I2C_SDA1			(digitalPinToPinName(PIN_WIRE_SDA1))
-#define I2C_SCL1			(digitalPinToPinName(PIN_WIRE_SCL1))
+
+#define SPI_HOWMANY			2
 
 #define SPI_MISO			(digitalPinToPinName(PIN_SPI_MISO))
 #define SPI_MOSI			(digitalPinToPinName(PIN_SPI_MOSI))

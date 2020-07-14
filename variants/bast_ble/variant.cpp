@@ -1,36 +1,109 @@
 #include "Arduino.h"
 
+/* wiring_analog variables definition */
+/* Flag to indicate whether the ADC config has been changed from the default one */
+bool isAdcConfigChanged = false;
+
+/* 
+ * Configuration used for all the active ADC channels, it is initialized with the mbed default values
+ * When it is changed, all the ADC channels are reconfigured accordingly 
+ */
+analogin_config_t adcCurrentConfig = {
+    .resistor_p = NRF_SAADC_RESISTOR_DISABLED,
+    .resistor_n = NRF_SAADC_RESISTOR_DISABLED,
+    .gain       = NRF_SAADC_GAIN1_4,
+    .reference  = NRF_SAADC_REFERENCE_VDD4,
+    .acq_time   = NRF_SAADC_ACQTIME_10US,
+    .mode       = NRF_SAADC_MODE_SINGLE_ENDED,
+    .burst      = NRF_SAADC_BURST_DISABLED,
+    .pin_p      = NRF_SAADC_INPUT_DISABLED,
+    .pin_n      = NRF_SAADC_INPUT_DISABLED
+};
+
+void analogReference(uint8_t mode)
+{
+  nrf_saadc_reference_t reference = NRF_SAADC_REFERENCE_VDD4;
+  nrf_saadc_gain_t gain = NRF_SAADC_GAIN1_4;
+  if (mode == AR_VDD) {
+    reference = NRF_SAADC_REFERENCE_VDD4;
+    gain = NRF_SAADC_GAIN1_4;
+  } else if (mode == AR_INTERNAL) {
+    reference = NRF_SAADC_REFERENCE_INTERNAL;
+    gain = NRF_SAADC_GAIN1;
+  } else if (mode == AR_INTERNAL1V2) {
+    reference = NRF_SAADC_REFERENCE_INTERNAL;
+    gain = NRF_SAADC_GAIN1_2;
+  } else if (mode == AR_INTERNAL2V4) {
+    reference = NRF_SAADC_REFERENCE_INTERNAL;
+    gain = NRF_SAADC_GAIN1_4;
+  }
+  adcCurrentConfig.reference = reference;
+  adcCurrentConfig.gain = gain;
+  analogUpdate();
+}
+
+void analogAcquisitionTime(uint8_t time)
+{
+  nrf_saadc_acqtime_t acqTime = NRF_SAADC_ACQTIME_10US;
+  if (time == AT_3_US) {
+    acqTime = NRF_SAADC_ACQTIME_3US;
+  } else if (time == AT_5_US) {
+    acqTime = NRF_SAADC_ACQTIME_5US;
+  } else if (time == AT_10_US) {
+    acqTime = NRF_SAADC_ACQTIME_10US;
+  } else if (time == AT_15_US) {
+    acqTime = NRF_SAADC_ACQTIME_15US;
+  } else if (time == AT_20_US) {
+    acqTime = NRF_SAADC_ACQTIME_20US;
+  } else if (time == AT_40_US) {
+    acqTime = NRF_SAADC_ACQTIME_40US;
+  }
+  adcCurrentConfig.acq_time = acqTime;
+  analogUpdate();
+}
+
+AnalogPinDescription g_AAnalogPinDescription[] = {
+    // A0 - A7
+  { P0_2,  NULL },    // A0
+  { P0_28, NULL },    // A1
+  { P0_5,  NULL },    // A2
+  { P0_3,  NULL },    // A3
+  { P0_30, NULL },    // A4
+  { P0_29, NULL },    // A5
+  { P0_26, NULL },    // VBAT
+};
+
 PinDescription g_APinDescription[] = {
-  
+
   // D0 - D8
-  P0_10,  NULL, NULL,    // D0/TX
-  P0_9,  NULL, NULL,     // D1/RX
-  P1_11, NULL, NULL,     // D2/SDA
-  P1_10, NULL, NULL,     // D3/SCL
-  P1_0, NULL, NULL,      // D4/SCK
-  P1_2, NULL, NULL,      // D5
-  P1_13, NULL, NULL,     // D6
-  P1_6,  NULL, NULL,     // D7/MOSI
-  P0_15,  NULL, NULL,    // D8/MISO
+  { P0_10, NULL, NULL, NULL },     // D0/TX
+  { P0_9,  NULL, NULL, NULL },     // D1/RX
+  { P1_11, NULL, NULL, NULL },     // D2/SDA
+  { P1_10, NULL, NULL, NULL },     // D3/SCL
+  { P1_0,  NULL, NULL, NULL },     // D4/SCK
+  { P1_2,  NULL, NULL, NULL },     // D5
+  { P1_13, NULL, NULL, NULL },     // D6
+  { P1_6,  NULL, NULL, NULL },     // D7/MOSI
+  { P0_15, NULL, NULL, NULL },     // D8/MISO
 
   // D9 - D13
-  P0_6, NULL, NULL,      // D9
-  P1_9, NULL, NULL,      // D10
-  P0_8,  NULL, NULL,     // D11
-  P0_4, NULL, NULL,      // D12
-  P0_7, NULL, NULL,      // D13
+  { P0_6,  NULL, NULL, NULL },     // D9
+  { P1_9,  NULL, NULL, NULL },     // D10
+  { P0_8,  NULL, NULL, NULL },     // D11
+  { P0_4,  NULL, NULL, NULL },     // D12
+  { P0_7,  NULL, NULL, NULL },     // D13
 
   // D14 - LED
-  P0_24, NULL, NULL,      // D14
+  { P0_24,  NULL, NULL, NULL },     // D14
 
   // D15..D21 - A0 - A5
-  P0_2,  NULL, NULL,     // A0
-  P0_28,  NULL, NULL,    // A1
-  P0_5,  NULL, NULL,     // A2
-  P0_3, NULL, NULL,      // A3
-  P0_30, NULL, NULL,     // A4
-  P0_29, NULL, NULL,     // A5
-  P0_26, NULL, NULL,     // VBAT CHANGE!!
+  { P0_2,  NULL, NULL, NULL },     // A0
+  { P0_28, NULL, NULL, NULL },     // A1
+  { P0_5,  NULL, NULL, NULL },     // A2
+  { P0_3,  NULL, NULL, NULL },     // A3
+  { P0_30, NULL, NULL, NULL },     // A4
+  { P0_29, NULL, NULL, NULL },     // A5
+  { P0_26, NULL, NULL, NULL },     // VBAT
 
   // 22..27 - FLASH SPI
  
@@ -40,8 +113,13 @@ PinDescription g_APinDescription[] = {
   P0_22,  NULL, NULL,     // QSPI_DATA1
   P1_4, NULL, NULL,       // QSPI_DATA2
   P0_12, NULL, NULL,       // QSPI_DATA3
-  
 
+  { P0_13, NULL, NULL, NULL },     // QSPI_SCK
+  { P0_20, NULL, NULL, NULL },     // QSPI_CS
+  { P0_17, NULL, NULL, NULL },     // QSPI_DATA0
+  { P0_22, NULL, NULL, NULL },     // QSPI_DATA1
+  { P1_4,  NULL, NULL, NULL },     // QSPI_DATA2
+  { P0_12, NULL, NULL, NULL },     // QSPI_DATA3
 };
 
 extern "C" {
