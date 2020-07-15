@@ -33,8 +33,8 @@ rm -rf $FILENAME
 cd ..
 cp -R $FOLDERNAME mbed
 pwd
-gtar --exclude-vcs --exclude extras --exclude realese -jcvf $FILENAME mbed 
-rm -rf samd
+gtar --exclude-vcs --exclude extras --exclude realese --exclude .DS_Store -jcvf $FILENAME mbed 
+rm -rf mbed
 cd -
 pwd
 mv ../$FILENAME realese/$FILENAME
