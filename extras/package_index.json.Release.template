@@ -1,4 +1,3 @@
-{
 	"name": "Electronic Cats nRF528x Boards (Mbed OS)",
 	"architecture": "mbed",
 	"version": "%%VERSION%%",
@@ -6,6 +5,7 @@
 	"url": "https://github.com/ElectronicCats/Arduino_Boards_Index/raw/gh-pages/IDE_Board_Manager/%%FILENAME%%",
 	"archiveFileName": "%%FILENAME%%",
 	"checksum": "SHA-256:%%CHECKSUM%%",
+	"size": "%%SIZE%%",
 	"help": {
 		"online": "https://electroniccats.com/"
     },
