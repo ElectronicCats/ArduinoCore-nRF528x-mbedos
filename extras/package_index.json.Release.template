@@ -1,0 +1,34 @@
+{
+	"name": "Electronic Cats nRF528x Boards (Mbed OS)",
+	"architecture": "mbed",
+	"version": "%%VERSION%%",
+	"category": "Contributed",
+	"url": "https://github.com/ElectronicCats/Arduino_Boards_Index/raw/gh-pages/IDE_Board_Manager/%%FILENAME%%",
+	"archiveFileName": "%%FILENAME%%",
+	"checksum": "SHA-256:%%CHECKSUM%%",
+	"help": {
+		"online": "https://electroniccats.com/"
+    },
+	"size": "%%SIZE%%",
+        "boards": [
+            {"name": "Arduino Nano 33 BLE"},
+            {"name": "Electronic Cats Bast BLE"}
+	],
+	"toolsDependencies": [
+	{
+		"packager": "arduino",
+		"name": "openocd",
+		"version": "0.10.0-arduino9"
+	},
+	{
+		"packager": "arduino",
+		"name": "arm-none-eabi-gcc",
+		"version": "7-2017q4"
+	},
+	{
+		"name": "nrfjprog",
+		"packager": "adafruit",
+		"version": "9.4.0"
+	}
+	]
+},
