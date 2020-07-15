@@ -86,6 +86,9 @@ recipe.objcopy.bin.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf
 ## Create output (hex file)
 recipe.objcopy.hex.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf2hex.hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.hex"
 
+## Create dfu package zip file
+recipe.objcopy.zip.pattern="{tools.nrfutil.cmd}" dfu genpkg --dev-type 0x0052 --application "{build.path}/{build.project_name}.hex" "{build.path}/{build.project_name}.zip"
+
 ## Compute size
 recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.elf"
 recipe.size.regex.data=^(?:\.data|\.bss)\s+([0-9]+).*
@@ -119,12 +122,33 @@ tools.openocd.bootloader.params.quiet=-d0
 tools.openocd.bootloader.pattern="{path}/{cmd}" {bootloader.verbose} -s "{path}/share/openocd/scripts/" {bootloader.programmer} {bootloader.config} -c "telnet_port disabled; init; reset init; halt; adapter_khz 10000; {bootloader.extra_action.preflash}; program {{runtime.platform.path}/bootloaders/{bootloader.file}}; reset run; shutdown"
 
 #
-# BOSSA
+# NRFUTIL
 #
-tools.bossac.path={runtime.tools.bossac-1.9.1-arduino1.path}
-tools.bossac.cmd=bossac
-tools.bossac.cmd.windows=bossac.exe
+#***************************************************
+# adafruit-nrfutil for uploading
+# https://github.com/adafruit/Adafruit_nRF52_nrfutil
+# pre-built binaries are provided for macos and windows
+#***************************************************
+tools.nrfutil.cmd=adafruit-nrfutil
+tools.nrfutil.cmd.windows=/Users/sabas/Library/Arduino15/packages/arduino/tools/adafruit-nrfutil/win32/adafruit-nrfutil.exe
+tools.nrfutil.cmd.macosx=/Users/sabas/Library/Arduino15/packages/arduino/tools/adafruit-nrfutil/macos/adafruit-nrfutil
 
-tools.bossac.upload.params.verbose=-d
-tools.bossac.upload.params.quiet=
-tools.bossac.upload.pattern="{path}/{cmd}" {upload.verbose} --port={serial.port.file} -U -i -e -w "{build.path}/{build.project_name}.bin" -R
+tools.nrfutil.upload.params.verbose=--verbose
+tools.nrfutil.upload.params.quiet=
+tools.nrfutil.upload.pattern="{cmd}" {upload.verbose} dfu serial -pkg "{build.path}/{build.project_name}.zip" -p {serial.port} -b 115200 --singlebank
+
+#***************************************************
+# Burning bootloader with either jlink or nrfutil
+#***************************************************
+
+# Bootloader version
+tools.bootburn.bootloader.file={runtime.platform.path}/bootloader/{build.variant}/{build.variant}_bootloader-0.3.2_{build.sd_name}_{build.sd_version}
+
+tools.bootburn.bootloader.params.verbose=
+tools.bootburn.bootloader.params.quiet=
+tools.bootburn.bootloader.pattern={program.burn_pattern}
+
+# erase flash page while programming
+tools.bootburn.erase.params.verbose=
+tools.bootburn.erase.params.quiet=
+tools.bootburn.erase.pattern=

@@ -46,4 +46,3 @@ typedef enum {
 
 /* Redeclare Common.h functions with the updated PinMode */
 void pinMode(pin_size_t pinNumber, PinMode pinMode);
-
