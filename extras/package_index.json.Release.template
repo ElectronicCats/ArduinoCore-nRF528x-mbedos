@@ -1,3 +1,4 @@
+{
 	"name": "Electronic Cats nRF528x Boards (Mbed OS)",
 	"architecture": "mbed",
 	"version": "%%VERSION%%",
@@ -9,7 +10,6 @@
 	"help": {
 		"online": "https://electroniccats.com/"
     },
-	"size": "%%SIZE%%",
         "boards": [
             {"name": "Arduino Nano 33 BLE"},
             {"name": "Electronic Cats Bast BLE"}
