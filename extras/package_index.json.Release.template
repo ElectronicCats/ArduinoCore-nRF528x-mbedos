@@ -29,6 +29,11 @@
 		"name": "nrfjprog",
 		"packager": "adafruit",
 		"version": "9.4.0"
-	}
+	},
+    {
+        "name": "nrfutil",
+        "packager": "electroniccats",
+        "version": "0.5.3post10"
+    }
 	]
 },
