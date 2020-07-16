@@ -13,7 +13,21 @@ The repository contains the Arduino APIs and IDE integration files targeting a g
 - Support library [ArduinoBLE](https://github.com/arduino-libraries/ArduinoBLE)
 - Support Library Arduino Tensorflow Lite
 
-## Installation
+##  Easy Install
+
+To add board support for our products, start Arduino and open the Preferences window (**File** > **Preferences**). Now copy and paste the following URL into the 'Additional Boards Manager URLs' input field:
+
+	https://electroniccats.github.io/Arduino_Boards_Index/package_electroniccats_index.json
+
+
+- If there is already an URL from another manufacturer in that field, click the button at the right end of the field. This will open an editing window allowing you to paste the above URL onto a new line.
+
+- Press the "OK" button.
+- Open the "boards manager" that is in tools --> Board --> board manager.
+- Now write "Electronic Cats" (without quotes) in the search bar.
+- Click in install, jus wait to finish to install and only close the window. 
+
+## Manual Installation
 
 Clone the repository in `$sketchbook/hardware/arduino`
 
