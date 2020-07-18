@@ -29,6 +29,7 @@ jobs:
         
     - name: Install Arduino CLI and Tools
       run: |
+        pip3 install --user adafruit-nrfutil
         # make all our directories we need for files and libraries
         mkdir $HOME/.arduino15
         mkdir $HOME/.arduino15/packages
@@ -50,7 +51,5 @@ jobs:
         BSP_VERSION=`eval ls $HOME/$BSP_PATH`
         rm -r $HOME/$BSP_PATH/*
         ln -s $GITHUB_WORKSPACE $HOME/$BSP_PATH/$BSP_VERSION
-    - name: Install adafruit-nrfutil
-      run: pip3 install --user adafruit-nrfutil
     - name: Build examples
       run: python3 extras/build_all.py ${{ matrix.arduino-platform }}

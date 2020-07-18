@@ -128,6 +128,12 @@ static const uint8_t SCK1  = PIN_SPI1_SCK ;
 #define PIN_WIRE_SDA        (2u)
 #define PIN_WIRE_SCL        (3u)
 
+// PDM Interfaces
+// ---------------
+#define PIN_PDM_PWR	 (15)
+#define PIN_PDM_CLK	 (16)
+#define PIN_PDM_DIN	 (17)
+
 // These serial port names are intended to allow libraries and architecture-neutral
 // sketches to automatically default to the correct port name for a particular type
 // of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
