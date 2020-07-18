@@ -50,5 +50,7 @@ jobs:
         BSP_VERSION=`eval ls $HOME/$BSP_PATH`
         rm -r $HOME/$BSP_PATH/*
         ln -s $GITHUB_WORKSPACE $HOME/$BSP_PATH/$BSP_VERSION
+    - name: Install adafruit-nrfutil
+      run: pip3 install --user adafruit-nrfutil
     - name: Build examples
       run: python3 extras/build_all.py ${{ matrix.arduino-platform }}
