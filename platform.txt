@@ -5,7 +5,7 @@
 # https://github.com/arduino/Arduino/wiki/Arduino-IDE-1.5---3rd-party-Hardware-specification
 
 name=Electronic Cats nRF528x Boards (Mbed OS)
-version=1.0.2
+version=1.0.3
 
 # Compile variables
 # ------------------------
@@ -126,11 +126,11 @@ tools.openocd.bootloader.pattern="{path}/{cmd}" {bootloader.verbose} -s "{path}/
 #
 #***************************************************
 # adafruit-nrfutil for uploading
-# https://github.com/adafruit/Adafruit_nRF52_nrfutil
-# pre-built binaries are provided for macos and windows
+# https://github.com/ElectronicCats/Adafruit_nRF52_nrfutil/releases/
+# pre-built binaries are provided for macos and windows and linux
 #***************************************************
 
-tools.nrfutil.cmd=adafruit-nrfutil
+tools.nrfutil.cmd={runtime.tools.nrfutil-0.5.3post10.path}/adafruit-nrfutil
 tools.nrfutil.cmd.windows={runtime.tools.nrfutil-0.5.3post10.path}/adafruit-nrfutil.exe
 tools.nrfutil.cmd.macosx={runtime.tools.nrfutil-0.5.3post10.path}/adafruit-nrfutil
 
