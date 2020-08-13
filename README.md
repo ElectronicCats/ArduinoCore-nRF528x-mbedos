@@ -1,4 +1,6 @@
-# Electronic Cats Arduino Core for mbed enabled devices
+# This repository has been archived, we are now working on [ArduinoCore-mbed](https://github.com/ElectronicCats/ArduinoCore-mbed)
+
+## Electronic Cats Arduino Core for mbed enabled devices
 
 The repository contains the Arduino APIs and IDE integration files targeting a generic mbed-enabled board
 
